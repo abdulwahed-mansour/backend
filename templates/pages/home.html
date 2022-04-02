@@ -1,4 +1,5 @@
 {% extends 'base_en.html' %}
+{% load socialaccount %} 
 {% load static %}
 
 {% block title %}Home page{% endblock title %}
@@ -7,13 +8,22 @@
 
 <div class="px-4 py-5 my-5 text-center">
           
-  <h1 class="display-5 fw-bold">Home page</h1>
+  <h1 class="display-5 fw-bold">Django Social Login</h1>
   <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap.</p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
-      <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
-    </div>
+    {% if user.is_authenticated %}
+      <p class="lead mb-4">Welcome {{ user.username }}</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'account_logout' %}" class="btn btn-primary btn-lg px-4 gap-3">Logout</a>
+      </div>
+    {% else %}
+      <p class="lead mb-4">Please login to continue</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-outline-secondary btn-lg px-4">SignUp</a>
+      </div>
+    {% endif %}
+    
+    
   </div>
 </div>
 
